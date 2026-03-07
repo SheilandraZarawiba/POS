@@ -2,10 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\UserModel;
+use Illuminate\Http\Request;
+
 class UserController extends Controller
 {
-    public function profile($id, $name)
+    public function index()
     {
-        return view('user.profile', compact('id', 'name'));
+        // update data user dengan Eloquent Model
+        $data = [
+            'nama' => 'Pelanggan Pertama'
+        ];
+
+        UserModel::where('username', 'customer-1')->update($data); // update data user
+
+        // ambil semua data dari tabel m_user
+        $user = UserModel::all();
+        return view('user', ['data' => $user]);
     }
 }
